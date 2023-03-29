@@ -7,7 +7,7 @@ import whisper
 import json
 import ast
 import openai
-import sample_config as config
+import backend.sample_config as config
 app = flask.Flask(__name__)
 CORS(app)
 openai.api_key = config.OPENAI_API_KEY
@@ -24,7 +24,6 @@ def transcribe():
         result = audio_model.transcribe(save_path, fp16=False,language='english')
         command=result['text']
         prompt=f"""{command}->"""
-        print("start")
         model="davinci:ft-personal-2023-03-27-09-45-59"
         response = openai.Completion.create(
         model=model,
